@@ -1,2 +1,23 @@
 ---
 # defaults file for sabnzbd
+
+# Helper vaiable. In use by other roles
+sabnzbd_enabled: yes
+
+# Subnzbd Daemon Path
+sabnzbd_path: /opt/sabnzbd
+
+# Sabnzbd API Key
+sab_apikey: c48afc846972e295826bb05d2e84dd59
+
+# Usenet Crawler API key
+usenet_crawler_api_key: 9d9af7ab6548948fcdc2db864ecd2588
+
+# Sabnzbd Incomplete download locations
+sabnzbd_incomplete: "{{ htpc_downloads_incomplete }}/sabnzbd"
+
+# Helper vaiable. In use by other roles
+sabnzbd_host: "{{ ansible_default_ipv4.address }}"
+
+# Sabnzbd port. Default port 8080 conflicts with Kodi default port
+sabnzbd_port: 9000

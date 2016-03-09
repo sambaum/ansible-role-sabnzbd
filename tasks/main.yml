@@ -1,2 +1,33 @@
 ---
 # tasks file for sabnzbd
+
+- name: Add Sabnzbd repository
+  apt_repository: repo=ppa:jcfp/ppa state=present
+
+- name: Install Sabnzbd
+  apt: pkg=sabnzbdplus state=latest update_cache=yes cache_valid_time=3600
+
+- name: Create Sabnzbd directory
+  file: path={{ sabnzbd_path }} owner={{ htpc_user_username }} group={{ htpc_user_group }} state=directory mode=0755
+
+  # TODO: Add task for fetching sabnzbd api key if exists and using it in template.
+  # TODO: Fix Downloads directory configuration to absolute path using prior defined variables.
+  # TODO: Automatically Download Movies, TV and the rest of the media into separate directories
+
+- name: Create Deluge Incomplete downloads folders
+  file: path={{ item }} state=directory owner={{ htpc_user_username }} group={{ htpc_user_group }} mode=0775 recurse=yes
+  with_items:
+    - "{{ sabnzbd_incomplete }}"
+
+- name: Update Sabnzbd configuration
+  template: src=opt_sabnzbd_subnzbd.ini.j2 dest={{ sabnzbd_path }}/sabnzbd.ini owner={{ htpc_user_username }} group={{ htpc_user_group }} mode=0644
+  notify:
+    - restart sabnzbd
+
+- name: Update Sabnzbd Daemon configuration
+  template: src=etc_default_sabnzbd.j2 dest=/etc/default/sabnzbdplus owner=root group=root mode=0644
+  notify:
+    - restart sabnzbd
+
+- name: Make sure Sabnzbd is running and started on boot
+  service: name=sabnzbdplus state=started enabled=yes
