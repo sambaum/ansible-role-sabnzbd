@@ -10,9 +10,6 @@ sabnzbd_path: /opt/sabnzbd
 # Sabnzbd API Key
 sab_apikey: c48afc846972e295826bb05d2e84dd59
 
-# Usenet Crawler API key
-usenet_crawler_api_key: 9d9af7ab6548948fcdc2db864ecd2588
-
 # Sabnzbd Incomplete download locations
 sabnzbd_incomplete: "{{ htpc_downloads_incomplete }}/sabnzbd"
 
