@@ -106,6 +106,16 @@ htpc_downloads_complete: "{{ htpc_media_path }}/downloads/complete"
 htpc_downloads_incomplete: "{{ htpc_media_path }}/downloads/incomplete"
 ```
 
+Variables defined in `GR360RY.nzbtomedia` role:
+
+```
+---
+# defaults file for nzbtomedia
+
+nzbtomedia_enabled: yes
+nzbtomedia_path: /opt/nzbtomedia
+```
+
 Example Playbook
 ----------------
 
