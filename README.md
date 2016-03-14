@@ -16,7 +16,8 @@ List of tasks that will be performed under `sabnzbd` role:
 
 1. Install and Configure Sabnzbd Daemon
 2. Create Sabnzbd Complete and Incomplete Downloads folders
-4. Configure Categories if installed with `nzbtomedia` roles
+3. If `newsgroups_servers` is defined, configure usenet server and credentials
+4. Configure Categories and use `nzbtomedia` postprocessing scripts
 
 This role is dependant on `htpc-common` role which performs the following tasks:
 
@@ -55,9 +56,6 @@ sabnzbd_enabled: yes
 # Sabnzbd API Key
 sab_apikey: c48afc846972e295826bb05d2e84dd59
 
-# Usenet Crawler API key
-usenet_crawler_api_key: 9d9af7ab6548948fcdc2db864ecd2588
-
 # Sabnzbd Incomplete download locations
 sabnzbd_incomplete: "{{ htpc_downloads_incomplete }}/sabnzbd"
 
@@ -68,12 +66,23 @@ sabnzbd_host: "{{ ansible_default_ipv4.address }}"
 sabnzbd_port: 9000
 ```
 
+Optionally preconfigure usenet credentials ( See examples )
+
+```
+newsgroups_servers:
+  - name:
+    username:
+    password:
+    connections:
+```
+
 Dependencies
 ------------
 
 Role Name | Description
 ----------|-----------
 [![Galaxy](http://img.shields.io/badge/galaxy-GR360RY.htpc--common-blue.svg?style=flat-square)](https://galaxy.ansible.com/GR360RY/htpc-common/)| Create htpc user and media folders
+[![Galaxy](http://img.shields.io/badge/galaxy-GR360RY.nzbtomedia-blue.svg?style=flat-square)](https://galaxy.ansible.com/GR360RY/nzbtomedia)    | Install NZBtoMedia Postprocessing
 
 Variables defined in `GR360RY.htpc-common` role:
 
@@ -100,12 +109,61 @@ htpc_downloads_incomplete: "{{ htpc_media_path }}/downloads/incomplete"
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Install sabnzbd. Usenet credentials can be supplied through web interface.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```
+- hosts: htpc-server
+  become: yes
+    
+  roles:
+    - role: GR360RY.sabnzbd
+```
 
+Install sabnzbd. Configure usenet server credentials.
+
+```
+- hosts: htpc-server
+  become: yes
+
+  vars:
+
+    # Single or multiple news servers can be defined.
+    newsgroups_servers:
+      - name: news.someserver.com
+        username: foo
+        password: bar
+        connections: 10
+      - name: eu.news.someserver.com
+        username: foo
+        password: bar
+        connections: 10
+    
+  roles:
+    - role: GR360RY.sabnzbd
+```
+
+HTPC-Ansible Project
+--------------------
+
+This role is part of HTPC-Ansible project that includes additional roles for building Ubuntu Based HTPC Server.
+
+ Role name               | Comment
+-------------------------|-----------------------------
+[![Galaxy](http://img.shields.io/badge/galaxy-GR360RY.htpc--common-blue.svg?style=flat-square)](https://galaxy.ansible.com/GR360RY/htpc-common)   | Create htpc user and media folders
+[![Galaxy](http://img.shields.io/badge/galaxy-GR360RY.htpc--nas-blue.svg?style=flat-square)](https://galaxy.ansible.com/GR360RY/htpc-nas)         | Configure NAS ( NFS, CIFS and AFP )
+[![Galaxy](http://img.shields.io/badge/galaxy-GR360RY.kodi--client-blue.svg?style=flat-square)](https://galaxy.ansible.com/GR360RY/kodi-client)   | Install Kodi Media Player
+[![Galaxy](http://img.shields.io/badge/galaxy-GR360RY.kodi--mysql-blue.svg?style=flat-square)](https://galaxy.ansible.com/GR360RY/kodi-mysql)     | Install MySQL Backend for Kodi
+[![Galaxy](http://img.shields.io/badge/galaxy-GR360RY.deluge-blue.svg?style=flat-square)](https://galaxy.ansible.com/GR360RY/deluge)              | Install Deluge Bittornet Client
+[![Galaxy](http://img.shields.io/badge/galaxy-GR360RY.nzbtomedia-blue.svg?style=flat-square)](https://galaxy.ansible.com/GR360RY/nzbtomedia)      | Install NZBtoMedia Postprocessing
+[![Galaxy](http://img.shields.io/badge/galaxy-GR360RY.sickrage-blue.svg?style=flat-square)](https://galaxy.ansible.com/GR360RY/sickrage)          | Install SickRage
+[![Galaxy](http://img.shields.io/badge/galaxy-GR360RY.couchpotato-blue.svg?style=flat-square)](https://galaxy.ansible.com/GR360RY/couchpotato)    | Install CouchPotato
+[![Galaxy](http://img.shields.io/badge/galaxy-GR360RY.htpc--manager-blue.svg?style=flat-square)](https://galaxy.ansible.com/GR360RY/htpc-manager) | Install htpc-manager
+<!--
+[![Galaxy](http://img.shields.io/badge/galaxy-GR360RY.sabnzbd-blue.svg?style=flat-square)](https://galaxy.ansible.com/GR360RY/sabnzbd)            | Install Sabnzbd
+[![Galaxy](http://img.shields.io/badge/galaxy-GR360RY.tvheadend-blue.svg?style=flat-square)](https://galaxy.ansible.com/GR360RY/tvheadend)        | Install Tvheadend
+
+Additional Info is available at [www.htpc-ansible.org](http://www.htpc-ansible.org)
+ -->
 License
 -------
 
