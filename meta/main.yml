@@ -1,16 +1,15 @@
 ---
 galaxy_info:
-  author: Gregory Shulov
+  author: sambaum
   description: An Ansible role to setup and configure Sabnzbd+ on Ubuntu.
   license: BSD
-  min_ansible_version: 2.0
+  min_ansible_version: 2.2
   platforms:
   - name: Ubuntu
     versions:
-      - trusty
+      - xenial
   galaxy_tags:
     - htpc
     - system
 dependencies:
-  - GR360RY.htpc-common
-  - GR360RY.nzbtomedia
+  - ansible-role-htpc-common

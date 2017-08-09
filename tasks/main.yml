@@ -1,11 +1,17 @@
 ---
 # tasks file for sabnzbd
 
-- name: Add Sabnzbd repository
-  apt_repository: repo=ppa:jcfp/ppa state=present
+- name: Add Repository "only final stable releases"
+  apt_repository:
+    repo: ppa:jcfp/nobetas
+    state: present
 
 - name: Install Sabnzbd
-  apt: pkg=sabnzbdplus state=latest update_cache=yes cache_valid_time=3600
+  package:
+     name: "{{ item }}"
+     state: present
+  with_items:
+     - sabnzbdplus
 
 - name: Create Sabnzbd directory
   file: path={{ sabnzbd_path }} owner={{ htpc_user_username }} group={{ htpc_user_group }} state=directory mode=0755
