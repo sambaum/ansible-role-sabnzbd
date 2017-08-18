@@ -304,21 +304,21 @@ name = *
 script = None
 newzbin = ""
 dir = ""
-{% if sickbeard_enabled is defined and sickbeard_enabled %}
-[[tv]]
+{% if sonarr_enabled is defined and sonarr_enabled %}
+[[series]]
 priority = -100
 pp = ""
 name = tv
 script = nzbToSickBeard.py
 newzbin = TV*
-dir = ""
+dir = "series"
 {% endif %}
-{% if couchpotato_enabled is defined and couchpotato_enabled %}
-[[movie]]
+{% if radarr_enabled is defined and radarr_enabled %}
+[[movies]]
 priority = -100
 pp = ""
 name = movie
 script = nzbToCouchPotato.py
 newzbin = Movies*
-dir = ""
+dir = "movies"
 {% endif %}

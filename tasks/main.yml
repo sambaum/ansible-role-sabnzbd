@@ -5,9 +5,11 @@
   apt_repository:
     repo: ppa:jcfp/nobetas
     state: present
+
+- name: Add Repository "sab-addons"
+  apt_repository:
     repo: ppa:jcfp/sab-addons
     state: present
-
 
 - name: Install Sabnzbd
   package:
