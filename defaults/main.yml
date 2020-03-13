@@ -18,3 +18,5 @@ sabnzbd_host: "{{ ansible_default_ipv4.address }}"
 
 # Sabnzbd port. Default port 8080 conflicts with Kodi default port
 sabnzbd_port: 9000
+
+sabnzbd_host_whitelist: sabnzbd, sabnzbd.int.sambaum.ch # comma separated list: host1, host2 // https://sabnzbd.org/wiki/extra/hostname-check.html
