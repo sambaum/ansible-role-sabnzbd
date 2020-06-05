@@ -284,16 +284,17 @@ pushbullet_prio_error = 0
 {% for server in newsgroups_servers %}
 [[{{ server.name }}]]
 username = {{ server.username }}
+priority = {{ server.priority }}
 enable = 1
 name = {{ server.name }}
 fillserver = 0
 connections = {{ server.connections }}
-ssl = 0
+ssl = {{ server.ssl }}
 host = {{ server.name }}
 timeout = 120
 password = {{ server.password }}
 optional = 0
-port = 119
+port = {{ server.port }}
 retention = 0
 {% endfor %}
 {% endif %}
