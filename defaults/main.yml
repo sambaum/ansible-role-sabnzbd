@@ -1,6 +1,9 @@
 ---
 # defaults file for sabnzbd
 
+sabnzbd_user_username: sabnzbd
+sabnzbd_user_group: sabnzbd
+
 # Helper vaiable. In use by other roles
 sabnzbd_enabled: yes
 
@@ -10,8 +13,10 @@ sabnzbd_path: /opt/sabnzbd
 # Sabnzbd API Key
 sab_apikey: c48afc846972e295826bb05d2e84dd59
 
-# Sabnzbd Incomplete download locations
-sabnzbd_incomplete: "{{ htpc_downloads_incomplete }}/sabnzbd"
+# Sabnzbd locations
+sabnzbd_incomplete: "/tmp/sabnzbd/incomplete"
+sabnzbd_downloads_watched: "/tmp/sabnzbd/watched"
+sabnzbd_downloads_complete: "/tmp/sabnzbd/complete"
 
 # Helper vaiable. In use by other roles
 sabnzbd_host: "{{ ansible_default_ipv4.address }}"

@@ -1,5 +1,10 @@
 ---
 # tasks file for sabnzbd
+- name: Add user {{ sabnzbd_user_username }}
+  user:
+    name: "{{ sabnzbd_user_username }}"
+    comment: sabnzbd user
+    group: "{{ sabnzbd_user_group }}"
 
 - name: Add Repository "only final stable releases"
   apt_repository:
@@ -20,15 +25,15 @@
 #     - python-sabyenc
 
 - name: Create Sabnzbd directory
-  file: path={{ sabnzbd_path }} owner={{ htpc_user_username }} group={{ htpc_user_group }} state=directory mode=0755
+  file: path={{ sabnzbd_path }} owner={{ sabnzbd_user_username }} group={{ sabnzbd_user_group }} state=directory mode=0755
 
 - name: Create Sabnzbd Incomplete downloads folders
-  file: path={{ item }} state=directory owner={{ htpc_user_username }} group={{ htpc_user_group }} mode=0777 recurse=yes
+  file: path={{ item }} state=directory owner={{ sabnzbd_user_username }} group={{ sabnzbd_user_group }} mode=0777 recurse=yes
   with_items:
     - "{{ sabnzbd_incomplete }}"
 
 - name: Update Sabnzbd configuration
-  template: src=sabnzbd.ini.j2 dest={{ sabnzbd_path }}/sabnzbd.ini owner={{ htpc_user_username }} group={{ htpc_user_group }} mode=0644
+  template: src=sabnzbd.ini.j2 dest={{ sabnzbd_path }}/sabnzbd.ini owner={{ sabnzbd_user_username }} group={{ sabnzbd_user_group }} mode=0644
   notify:
     - restart sabnzbd
 
