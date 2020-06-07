@@ -11,5 +11,5 @@ galaxy_info:
   galaxy_tags:
     - htpc
     - system
-dependencies:
-  - ansible-role-htpc-common
+dependencies: []
+#  - ansible-role-htpc-common

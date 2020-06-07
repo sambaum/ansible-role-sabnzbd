@@ -17,7 +17,7 @@
      state: present
   with_items:
      - sabnzbdplus
-     - python-sabyenc
+#     - python-sabyenc
 
 - name: Create Sabnzbd directory
   file: path={{ sabnzbd_path }} owner={{ htpc_user_username }} group={{ htpc_user_group }} state=directory mode=0755
